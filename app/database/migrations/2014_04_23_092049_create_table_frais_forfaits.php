@@ -19,8 +19,8 @@ class CreateTableFraisForfaits extends Migration {
                $table->integer('annee');
                $table->integer('forfait_id')->unsigned();
                $table->integer('user_id')->unsigned();
-               $table->foreign('forfait_id')->references('id')->on('forfaits');
-               $table->foreign('user_id')->references('id')->on('users');
+               $table->foreign('forfait_id')->references('id')->on('forfaits')->unsigned();
+               $table->foreign('user_id')->references('id')->on('users')->unsigned();
             });
 	}
 

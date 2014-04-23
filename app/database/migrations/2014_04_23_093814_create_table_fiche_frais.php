@@ -18,8 +18,8 @@ class CreateTableFicheFrais extends Migration {
                $table->integer('annee');
                $table->integer('user_id')->unsigned();
                $table->integer('etat_id')->unsigned();
-               $table->foreign('user_id')->references('id')->on('users');
-               $table->foreign('etat_id')->references('id')->on('etats');
+               $table->foreign('user_id')->references('id')->on('users')->unsigned();
+               $table->foreign('etat_id')->references('id')->on('etats')->unsigned();
             });
 	}
 
