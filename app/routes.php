@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
-});
+Route::get('/', array('uses' => 'NavigationController@afficherHomePage'));
+Route::post('login', array('uses' => 'ConnexionController@verifierConnexion'));
+Route::get('login', array('uses' => 'ConnexionController@afficherPageLogin'));
+Route::get('deconnexion', array('uses' => 'ConnexionController@deconnexionUser'));
