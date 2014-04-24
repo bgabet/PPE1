@@ -12,7 +12,7 @@
 */
 
 Route::get('/', array('uses' => 'NavigationController@afficherHomePage'));
-Route::post('login', array('uses' => 'ConnexionController@verifierConnexion'));
+Route::post('login', array('before' => 'csrf', 'uses' => 'ConnexionController@verifierConnexion'));
 Route::get('login', array('uses' => 'ConnexionController@afficherPageLogin'));
 Route::get('deconnexion', array('uses' => 'ConnexionController@deconnexionUser'));
 
