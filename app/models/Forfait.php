@@ -1,6 +1,6 @@
 <?php
 
-Class Fortfait extends Eloquent
+Class Forfait extends Eloquent
 {
     protected $table = 'forfaits';
     

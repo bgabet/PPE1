@@ -1,6 +1,6 @@
 <?php
 
-Class FraisHorsFortfait extends Eloquent
+Class FraisHorsForfait extends Eloquent
 {
     protected $table = 'fraisHorsForfaits';
     
