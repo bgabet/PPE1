@@ -20,6 +20,7 @@ class CreateTableFicheFrais extends Migration {
                $table->integer('etat_id')->unsigned();
                $table->foreign('user_id')->references('id')->on('users')->unsigned();
                $table->foreign('etat_id')->references('id')->on('etats')->unsigned();
+               $table->timestamps();
             });
 	}
 

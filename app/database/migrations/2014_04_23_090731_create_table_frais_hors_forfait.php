@@ -20,6 +20,7 @@ class CreateTableFraisHorsForfait extends Migration {
                $table->integer('quantite');
                $table->integer('user_id')->unsigned();
                $table->foreign('user_id')->references('id')->on('users')->unsigned();
+               $table->timestamps();
             });
 	}
 

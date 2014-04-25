@@ -2,7 +2,9 @@
 
     class NavigationController extends BaseController{
         
-        protected function createNewSheet($month, $year) {
+        // fonctions
+        
+        protected function creerFicheFrais($month, $year) {
             $db = DB::table('ficheFrais')->insert(array(
                 'mois' => $month,
                 'annee' => $year,
@@ -11,6 +13,22 @@
             ));
         }
         
+        protected function getFicheFrais($month, $year) {
+            $row = DB::table('ficheFrais')
+                    ->where('mois', '=', $month)
+                    ->where('annee', '=', $year)
+                    ->first();
+            return $row;
+        }
+        
+        protected function existSheet($month, $year){
+            $row = $this->getFicheFrais($month, $year);
+            if(isset($row) && !empty($row)){
+                return true;
+            }
+            return false;
+        }
+
         protected function cloturerFiche($month, $year) {
             $row = DB::table('ficheFrais')
                     ->where('mois', '=', $month)
@@ -18,33 +36,9 @@
                     ->update(array('etat_id' => 2));
         }
         
-        protected function checkFicheCloture($month, $year){
-            $row = DB::table('ficheFrais')
-                    ->where('mois', '=', $month)
-                    ->where('annee', '=', $year)
-                    ->first();
-            
-            $id = (int)$row->etat_id;
-            if($id == 3){
-                return false;
-            }
-            return true;
-            
-        }
+
         
-        protected function checkNewSheet($month, $year) {
-            $row = DB::table('ficheFrais')
-                    ->where('user_id', '=', Auth::user()->id)
-                    ->where('mois', '=', $month)
-                    ->where('annee', '=', $year)
-                    ->first();
-            
-            if(!isset($row) || empty($row)){
-                return true;
-            }
-            
-            return false;
-        }
+        // fonction pour page
         
         public function afficherHomePage(){
             if(!Auth::check()){
@@ -66,16 +60,15 @@
                 $previousyear = $year;
             }
             
-            if($day > 10){
-                $clore = $this->checkFicheCloture($previousmonth, $previousyear);
-                if($clore == false){
-                    $this->cloturerFiche($previousmonth, $previousyear);
-                }
+            if($this->existSheet($month, $year) == false){
+                $this->creerFicheFrais($month, $year);
             }
             
-            $check = $this->checkNewSheet($month, $year);
-            if ($check) {
-                $this->createNewSheet($month, $year);
+            if($day > 10){
+                if($this->existSheet($previousmonth, $previousyear) == true){
+                    $this->cloturerFiche($previousmonth, $previousyear);
+                }
+                
             }
             
             Return View::make('frais/saisiefrais');

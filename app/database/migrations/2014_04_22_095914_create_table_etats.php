@@ -16,6 +16,7 @@ class CreateTableEtats extends Migration {
                $table->increments('id');
                $table->string('libelle');
                $table->string('designation');
+               $table->timestamps();
             });
 	}
 

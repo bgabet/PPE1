@@ -17,6 +17,7 @@ class CreateTableForfaits extends Migration {
                $table->string('libelle');
                $table->decimal('montant', 5,2);
                $table->string('designation');
+               $table->timestamps();
             });
 	}
 

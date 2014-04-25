@@ -15,6 +15,7 @@ class CreateTableFonctions extends Migration {
             Schema::create('fonctions', function($table){
                $table->increments('id');
                $table->string('libelle');
+               $table->timestamps();
             });
 	}
 
