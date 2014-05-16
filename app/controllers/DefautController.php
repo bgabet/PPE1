@@ -23,9 +23,17 @@
             Return View::make('ajouterfraishorsforfait');
         }
         
-        
-        
-        
+        public function afficherPageFicheFrais(){
+            Return View::make('voirFicheFrais');
+        }
+
+
+
+
+
+
+
+
         /*
         protected function exist($month, $year){
             $row = FicheFrais::getWithDate($month, $year);

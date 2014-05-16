@@ -13,7 +13,7 @@ Class FicheFrais extends Eloquent
     }
     
     public static function getWithIdUser() {
-        return FicheFrais::where('user_id', '=', Auth::user()->id)->get();
+        return FicheFrais::where('user_id', '=', Auth::user()->id)->orderBy('id', 'desc')->get();
     }
     
     public static function cloturerFiche($month, $year) {

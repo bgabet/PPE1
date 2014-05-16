@@ -12,16 +12,20 @@
 */
 
 
-Route::group(array('before' => 'auth.basic'), function()
+Route::group(array('before' => 'auth'), function()
 {
     
     Route::get('deconnexion', array('uses' => 'ConnexionController@disconnect'));
     
     Route::get('saisir-frais', array('uses' => 'DefautController@afficherPageChoixSaisie'));
     
-    Route::get('saisir-frais-forfait', array('uses' => 'DefautController@afficherFormFraisForfait'));
-    Route::get('saisir-frais-hors-forfait', array('uses' => 'DefautController@afficherFormFraisHorsForfait'));
+    Route::get('ajouter-frais-forfait', array('uses' => 'DefautController@afficherFormFraisForfait'));
+    Route::post('ajouter-frais-forfait', array('uses' => 'FraisController@ajouterFraisForfait'));
     
+    Route::get('ajouter-frais-hors-forfait', array('uses' => 'DefautController@afficherFormFraisHorsForfait'));
+    Route::post('ajouter-frais-hors-forfait', array('uses' => 'FraisController@ajouterFraisHorsForfait'));
+    
+    Route::get('voir-fiche-frais', array('uses' => 'DefautController@afficherPageFicheFrais'));
     
     
     
