@@ -3,10 +3,10 @@
 class ConnexionController extends BaseController{
     
     public function afficherPageLogin(){
-        return View::make('connexion/login');
+        return View::make('login');
     }
     
-    public function deconnexionUser(){
+    public function disconnect(){
         Auth::logout();
         Return Redirect::to('login');
     }

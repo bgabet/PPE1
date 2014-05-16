@@ -6,7 +6,7 @@ Class FicheFrais extends Eloquent
     protected $table = 'ficheFrais';
     
     public static function getWithDate($month, $year){
-        return FicheFrais::where('mois', '=', $month)
+        return self::where('mois', '=', $month)
                 ->where('annee', '=', $year)
                 ->where('user_id', '=', Auth::user()->id)
                 ->first();
@@ -17,14 +17,14 @@ Class FicheFrais extends Eloquent
     }
     
     public static function cloturerFiche($month, $year) {
-        return FicheFrais::where('mois', '=', $month)
+        return self::where('mois', '=', $month)
                 ->where('annee', '=', $year)
                 ->where('user_id', '=', Auth::user()->id)
                 ->update(array('etat_id' => 2));
     }
     
     public static function createSheet() {
-        return FicheFrais::insert(array(
+        return self::insert(array(
             'mois' => Carbon::now()->month,
             'annee' => Carbon::now()->year,
             'user_id' => Auth::user()->id,

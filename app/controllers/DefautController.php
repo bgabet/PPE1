@@ -1,7 +1,32 @@
 <?php
 
-    class NavigationController extends BaseController{
+    class DefautController extends BaseController{
         
+        public function afficherHomePage(){
+            if(Auth::check()){
+                Return View::make('home');
+            }else{
+                Return View::make('login');
+            }
+        }
+
+
+        public function afficherPageChoixSaisie(){
+            Return View::make('choixsaisie');
+        }
+        
+        public function afficherFormFraisForfait(){
+            Return View::make('ajouterfraisforfait');
+        }
+        
+        public function afficherFormFraisHorsForfait(){
+            Return View::make('ajouterfraishorsforfait');
+        }
+        
+        
+        
+        
+        /*
         protected function exist($month, $year){
             $row = FicheFrais::getWithDate($month, $year);
             if(isset($row) && !empty($row)){
@@ -14,7 +39,7 @@
             if(!Auth::check()){
                 Return Redirect::to('login');
             }
-            Return View::make('navigation/home');
+            Return View::make('home');
         }
         
         public function afficherPageSaisie(){
@@ -41,8 +66,9 @@
                 
             }
             
-            Return View::make('frais/saisiefrais');
+            Return View::make('addcosts');
         }
+         */
     }
 
 ?>

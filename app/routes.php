@@ -11,9 +11,28 @@
 |
 */
 
-Route::get('/', array('uses' => 'NavigationController@afficherHomePage'));
+
+Route::group(array('before' => 'auth.basic'), function()
+{
+    
+    Route::get('deconnexion', array('uses' => 'ConnexionController@disconnect'));
+    
+    Route::get('saisir-frais', array('uses' => 'DefautController@afficherPageChoixSaisie'));
+    
+    Route::get('saisir-frais-forfait', array('uses' => 'DefautController@afficherFormFraisForfait'));
+    Route::get('saisir-frais-hors-forfait', array('uses' => 'DefautController@afficherFormFraisHorsForfait'));
+    
+    
+    
+    
+});
+
+Route::get('/', array('uses' => 'DefautController@afficherHomePage'));
 Route::post('login', array('before' => 'csrf', 'uses' => 'ConnexionController@verifierConnexion'));
 Route::get('login', array('uses' => 'ConnexionController@afficherPageLogin'));
-Route::get('deconnexion', array('uses' => 'ConnexionController@deconnexionUser'));
 
-Route::get('saisie-frais', array('uses' => 'NavigationController@afficherPageSaisie'));
+
+
+
+
+
