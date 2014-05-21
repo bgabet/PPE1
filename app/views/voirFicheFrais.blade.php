@@ -7,14 +7,17 @@
 ?>
 
 <form action="test" method="post">
-    <p>Fiche frais du mois de 
+    <p>Fiche frais du  
         <select name="choix-fiche-frais" id="choix-fiche-frais">
             <?php
                 foreach(FicheFrais::getWithIdUser() as $key => $fiche){
-                    echo "<option value=" . $fiche->id . ">" . $fiche->mois . " - " . $fiche->annee . "</option>";
+                    echo "<option value=" . $fiche->id . ">" . sprintf('%02d', $fiche->mois, 2) . " - " . $fiche->annee . "</option>";
                 }
             ?>
         </select>
         {{ Form::submit('OK') }}
     </p>
 </form>
+
+<br><br>
+
