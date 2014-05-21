@@ -5,17 +5,13 @@
     {{ Form::open(array('url' => 'ajouter-frais-forfait', 'method' => 'post')) }} 
         
         <?php
-        $month = Carbon::now()->month;
-        $year = Carbon::now()->year;
+        
+        $date = sprintf('%02d', Carbon::now()->day) . "/" . sprintf('%02d', Carbon::now()->month) . "/" . Carbon::now()->year;
         ?>
     
-        {{ Form::label('mois', 'Entrez le mois (2 chiffres)') }}
+        {{ Form::label('date', 'Entrez la date (jj/mm/aaaa)') }}
         {{ "<br>" }}
-        {{ Form::text('mois', $month) }}
-        {{ "<br><br>" }}
-        {{ Form::label('annee', 'Entrez l\'année (4 chiffres)') }}
-        {{ "<br>" }}
-        {{ Form::text('annee', $year) }}
+        {{ Form::text('mois', $date) }}
         {{ "<br><br>" }}
         <?php
         

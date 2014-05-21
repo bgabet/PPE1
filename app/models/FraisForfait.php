@@ -18,5 +18,13 @@ Class FraisForfait extends Eloquent
             ->where('user_id', '=', Auth::user()->id)
             ->get();
     }
-
+    
+    public static function sumForForfait($id, $month, $year){
+        return FraisForfait::where('forfait_id', '=', $id)
+            ->where('annee', '=', $year)
+            ->where('mois', '=', $month)
+            ->where('user_id', '=', Auth::user()->id)
+            ->sum('quantite');
+    }
+    
 }
