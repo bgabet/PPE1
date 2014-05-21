@@ -5,7 +5,6 @@
     {{ Form::open(array('url' => 'ajouter-frais-hors-forfait', 'method' => 'post')) }} 
         
         <?php
-        
         $date = sprintf('%02d', Carbon::now()->day) . "/" . sprintf('%02d', Carbon::now()->month) . "/" . Carbon::now()->year;
         ?>
     
@@ -13,7 +12,6 @@
         {{ "<br>" }}
         {{ Form::text('mois', $date) }}
         {{ "<br><br>" }}
-        
         
         {{ Form::label('libelle', 'Libelle') }}
         {{ "<br>" }}

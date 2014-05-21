@@ -20,10 +20,10 @@ Route::group(array('before' => 'auth'), function()
     Route::get('saisir-frais', array('uses' => 'DefautController@afficherPageChoixSaisie'));
     
     Route::get('ajouter-frais-forfait', array('uses' => 'DefautController@afficherFormFraisForfait'));
-    Route::post('ajouter-frais-forfait', array('uses' => 'FraisController@ajouterFraisForfait'));
+    Route::post('ajouter-frais-forfait', array('before' => 'csrf', 'uses' => 'FraisController@ajouterFraisForfait'));
     
     Route::get('ajouter-frais-hors-forfait', array('uses' => 'DefautController@afficherFormFraisHorsForfait'));
-    Route::post('ajouter-frais-hors-forfait', array('uses' => 'FraisController@ajouterFraisHorsForfait'));
+    Route::post('ajouter-frais-hors-forfait', array('before' => 'csrf', 'uses' => 'FraisController@ajouterFraisHorsForfait'));
     
     Route::get('voir-fiche-frais', array('uses' => 'DefautController@afficherPageFicheFrais'));
     
