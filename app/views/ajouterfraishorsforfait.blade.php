@@ -2,6 +2,22 @@
 
 @section('content')    
     
+    <?php
+        $errors = Session::get('errors');
+    
+        if(isset($errors) && !empty($errors)){
+            echo '<pre>';
+            var_dump($errors);
+            echo '</pre>';
+        }
+        
+        $success = Session::get('success');
+        
+        if(isset($success)){
+            echo $success;
+        }
+    ?>
+
     {{ Form::open(array('url' => 'ajouter-frais-hors-forfait', 'method' => 'post')) }} 
         
         <?php
@@ -10,10 +26,10 @@
     
         {{ Form::label('date', 'Entrez la date (jj/mm/aaaa)') }}
         {{ "<br>" }}
-        {{ Form::text('mois', $date) }}
+        {{ Form::text('date', $date) }}
         {{ "<br><br>" }}
         
-        {{ Form::label('libelle', 'Libelle') }}
+        {{ Form::label('libelle', 'Libellé') }}
         {{ "<br>" }}
         {{ Form::text('libelle') }}
         {{ "<br><br>" }}

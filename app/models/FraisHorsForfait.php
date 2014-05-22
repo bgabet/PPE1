@@ -10,4 +10,16 @@ Class FraisHorsForfait extends Eloquent
             ->where('user_id', '=', Auth::user()->id)
             ->get();
     }
+    
+    public static function ajouter($data){
+        self::insert(array(
+            'date' => $data['date'],
+            'montant' => $data['montant'],
+            'quantite' => $data['quantite'],
+            'libelle' => $data['libelle'],
+            'user_id' => Auth::user()->id
+        ));
+        
+        return true;
+    }
 }

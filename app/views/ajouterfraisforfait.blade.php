@@ -1,7 +1,24 @@
 @extends('layout')
 
 @section('content')    
+
+    <?php
+        $errors = Session::get('errors');
     
+        if(isset($errors) && !empty($errors)){
+            echo '<pre>';
+            var_dump($errors);
+            echo '</pre>';
+        }
+        
+        $success = Session::get('success');
+        
+        if(isset($success)){
+            echo $success;
+        }
+    ?>
+
+
     {{ Form::open(array('url' => 'ajouter-frais-forfait', 'method' => 'post')) }} 
         
         <?php
@@ -9,9 +26,13 @@
         $date = sprintf('%02d', Carbon::now()->day) . "/" . sprintf('%02d', Carbon::now()->month) . "/" . Carbon::now()->year;
         ?>
     
-        {{ Form::label('date', 'Entrez la date (jj/mm/aaaa)') }}
+        {{ Form::label('mois', "Entrez le mois (2 chiffres)") }}
         {{ "<br>" }}
-        {{ Form::text('mois', $date) }}
+        {{ Form::text('mois', sprintf('%02d', Carbon::now()->month)) }}
+        {{ "<br><br>" }}
+        {{ Form::label('annee', "Entrez l'année (4 chiffres)") }}
+        {{ "<br>" }}
+        {{ Form::text('annee', Carbon::now()->year) }}
         {{ "<br><br>" }}
         <?php
         

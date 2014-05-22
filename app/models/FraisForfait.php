@@ -20,11 +20,27 @@ Class FraisForfait extends Eloquent
     }
     
     public static function sumForForfait($id, $month, $year){
-        return FraisForfait::where('forfait_id', '=', $id)
+        return self::where('forfait_id', '=', $id)
             ->where('annee', '=', $year)
             ->where('mois', '=', $month)
             ->where('user_id', '=', Auth::user()->id)
             ->sum('quantite');
+    }
+    
+    public static function ajouter($data){
+        foreach(Forfait::get() as $forfait){
+            $quantite = $data['forfait-' . $forfait->id];
+            if($quantite != 0){
+                self::insert(array(
+                    'mois' => $data['mois'],
+                    'annee' => $data['annee'],
+                    'quantite' => $data['forfait-' . $forfait->id],
+                    'forfait_id' => $forfait->id,
+                    'user_id' => Auth::user()->id
+                ));
+            }
+        }
+        return true;
     }
     
 }
