@@ -1,16 +1,11 @@
 <?php
-
-// récupérer id de la fiche sélectionné par le formulaire en dessous
-// ajouter le selected sur le foreach en dessous
-
 $month = Carbon::now()->month;
 $year = Carbon::now()->year;
 
-$id_fiche = Session::get('id_fiche');
-if(isset($id_fiche) && !empty($id_fiche)){
-    $fichefrais = FicheFrais::getWithId($id_fiche);
-    $month = $fichefrais->mois;
-    $year = $fichefrais->annee;
+$fichechoisi = FicheFrais::getWithId(Session::get('id_fiche'));
+if(isset($fichechoisi)){
+    $month = $fichechoisi->mois;
+    $year = $fichechoisi->annee;
 }
 
 ?>
@@ -20,7 +15,7 @@ if(isset($id_fiche) && !empty($id_fiche)){
         <select name="choix-fiche" id="choix-fiche-frais">
             <?php
                 foreach(FicheFrais::getWithIdUser() as $key => $fiche){
-                    if($month == $fiche->mois && $year == $fiche->annee){
+                    if($fichechoisi == $fiche){
                         echo "<option selected value=" . $fiche->id . ">" . sprintf('%02d', $fiche->mois, 2) . " - " . $fiche->annee . "</option>";
                     }else{
                         echo "<option value=" . $fiche->id . ">" . sprintf('%02d', $fiche->mois, 2) . " - " . $fiche->annee . "</option>";
@@ -56,6 +51,7 @@ if(isset($id_fiche) && !empty($id_fiche)){
     
     
 </table>
+<a href="ajouter-frais-forfait">ajouter-frais-forfait</a>
 
 
 <br><br>
@@ -82,3 +78,4 @@ if(isset($id_fiche) && !empty($id_fiche)){
     endforeach; 
     ?>   
 </table>
+<a href="ajouter-frais-hors-forfait">ajouter-frais-hors-forfait</a>
