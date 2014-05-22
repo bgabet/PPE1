@@ -24,6 +24,18 @@
         }
         
         public function afficherPageFicheFrais(){
+            $month = Carbon::now()->month;
+            $year = Carbon::now()->year;
+            if(FicheFrais::isExist($month, $year) === false){
+                FicheFrais::createSheet($month, $year);
+            }
+            
+            $id = Input::get('choix-fiche');
+            if(isset($id) && !empty($id)){
+                Session::put('id_fiche', $id);
+            }
+            
+            
             Return View::make('voirFicheFrais');
         }
 

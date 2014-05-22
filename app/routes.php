@@ -25,8 +25,8 @@ Route::group(array('before' => 'auth'), function()
     Route::get('ajouter-frais-hors-forfait', array('uses' => 'DefautController@afficherFormFraisHorsForfait'));
     Route::post('ajouter-frais-hors-forfait', array('before' => 'csrf', 'uses' => 'FraisController@ajouterFraisHorsForfait'));
     
-    Route::get('voir-fiche-frais', array('uses' => 'DefautController@afficherPageFicheFrais'));
-    
+    Route::get('voir-fiche-frais', array('as' => 'voir-fiche-frais', 'uses' => 'DefautController@afficherPageFicheFrais'));
+    Route::post('voir-fiche-frais', array('uses' => 'DefautController@afficherPageFicheFrais'));
     
     
 });

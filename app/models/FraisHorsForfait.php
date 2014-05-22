@@ -13,7 +13,9 @@ Class FraisHorsForfait extends Eloquent
     
     public static function ajouter($data){
         self::insert(array(
-            'date' => $data['date'],
+            'jour' => $data['jour'],
+            'mois' => $data['mois'],
+            'annee' => $data['annee'],
             'montant' => $data['montant'],
             'quantite' => $data['quantite'],
             'libelle' => $data['libelle'],

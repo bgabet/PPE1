@@ -14,7 +14,9 @@ class CreateTableFraisHorsForfait extends Migration {
 	{
             Schema::create('fraisHorsForfaits', function($table){
                $table->increments('id');
-               $table->string('date');
+               $table->integer('jour');
+               $table->integer('mois');
+               $table->integer('annee');
                $table->string('libelle');
                $table->decimal('montant', 5, 2);
                $table->integer('quantite');

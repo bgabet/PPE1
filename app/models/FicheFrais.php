@@ -12,6 +12,10 @@ Class FicheFrais extends Eloquent
                 ->first();
     }
     
+    public static function getWithId($id){
+        return FicheFrais::where('id', '=', $id)->first();
+    }
+    
     public static function getWithIdUser() {
         return FicheFrais::where('user_id', '=', Auth::user()->id)->orderBy('id', 'desc')->get();
     }
@@ -23,10 +27,18 @@ Class FicheFrais extends Eloquent
                 ->update(array('etat_id' => 2));
     }
     
-    public static function createSheet() {
+    public static function isExist($month, $year){
+        $a = self::getWithDate($month, $year);
+        if(isset($a) && !empty($a)){
+            return true;
+        }
+        return false;
+    }
+    
+    public static function createSheet($month, $year) {
         return self::insert(array(
-            'mois' => Carbon::now()->month,
-            'annee' => Carbon::now()->year,
+            'mois' => $month,
+            'annee' => $year,
             'user_id' => Auth::user()->id,
             'etat_id' => 3
         ));

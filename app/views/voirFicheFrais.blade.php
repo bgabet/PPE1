@@ -3,15 +3,28 @@
 // récupérer id de la fiche sélectionné par le formulaire en dessous
 // ajouter le selected sur le foreach en dessous
 
+$month = Carbon::now()->month;
+$year = Carbon::now()->year;
+
+$id_fiche = Session::get('id_fiche');
+if(isset($id_fiche) && !empty($id_fiche)){
+    $fichefrais = FicheFrais::getWithId($id_fiche);
+    $month = $fichefrais->mois;
+    $year = $fichefrais->annee;
+}
 
 ?>
 
-<form action="test" method="post">
+<form action="voir-fiche-frais" method="post">
     <p>Fiche frais du  
-        <select name="choix-fiche-frais" id="choix-fiche-frais">
+        <select name="choix-fiche" id="choix-fiche-frais">
             <?php
                 foreach(FicheFrais::getWithIdUser() as $key => $fiche){
-                    echo "<option value=" . $fiche->id . ">" . sprintf('%02d', $fiche->mois, 2) . " - " . $fiche->annee . "</option>";
+                    if($month == $fiche->mois && $year == $fiche->annee){
+                        echo "<option selected value=" . $fiche->id . ">" . sprintf('%02d', $fiche->mois, 2) . " - " . $fiche->annee . "</option>";
+                    }else{
+                        echo "<option value=" . $fiche->id . ">" . sprintf('%02d', $fiche->mois, 2) . " - " . $fiche->annee . "</option>";
+                    }
                 }
             ?>
         </select>
@@ -57,8 +70,10 @@
     </tr>
     <?php 
     foreach (FraisHorsForfait::getWithDate($month, $year) as $fhf):
+        $d = array($fhf->jour, $fhf->mois, $fhf->annee);
+        $date = implode('/', $d);
         echo "<tr>";
-            echo "<td>" . $fhf->date . "</td>";
+            echo "<td>" . implode('/', $d) . "</td>";
             echo "<td>" . $fhf->libelle . "</td>";
             echo "<td>" . $fhf->montant . "</td>";
             echo "<td>" . $fhf->quantite . "</td>";

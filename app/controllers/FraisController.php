@@ -36,15 +36,24 @@
         }
         
         public function ajouterFraisHorsForfait() {
+            $date = explode('/', Input::get('date'));
+            $day = (int)$date[0];
+            $month = (int)$date[1];
+            $year = (int)$date[2];
+            
             $data = array(
-                'date'      => Input::get('date'), 
+                'jour' => $day,
+                'mois' => $month,
+                'annee' => $year,
                 'libelle'   => Input::get('libelle'),
                 'montant'   => Input::get('montant'),
                 'quantite'  => (int)Input::get('quantite')
             );
             
             $rules = array(
-                'date'      => 'required|max:10', 
+                'jour'      => 'required|max:2',
+                'mois'      => 'required|max:2',
+                'annee'     => 'required|min:4|max:4',
                 'libelle'   => 'required|max:255',
                 'montant'   => 'required|numeric',
                 'quantite'  => 'required|integer'
