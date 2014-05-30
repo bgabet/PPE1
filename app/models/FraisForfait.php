@@ -19,11 +19,11 @@ Class FraisForfait extends Eloquent
             ->get();
     }
     
-    public static function sumForForfait($id, $month, $year){
-        return self::where('forfait_id', '=', $id)
+    public static function sumForForfait($id_forfait, $month, $year, $id_user){
+        return self::where('forfait_id', '=', $id_forfait)
             ->where('annee', '=', $year)
             ->where('mois', '=', $month)
-            ->where('user_id', '=', Auth::user()->id)
+            ->where('user_id', '=', $id_user)
             ->sum('quantite');
     }
     
@@ -41,6 +41,18 @@ Class FraisForfait extends Eloquent
             }
         }
         return true;
+    }
+    
+    public static function getFrais($id_forfait, $id_user, $mois, $annee){
+        return self::where('forfait_id', '=', $id_forfait)
+                ->where('user_id', '=', $id_user)
+                ->where('mois', '=', $mois)
+                ->where('annee', '=', $annee)
+                ->get();
+    }
+    
+    public static function deleteFrais($id){
+        return self::find($id)->delete();
     }
     
 }

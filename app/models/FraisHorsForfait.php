@@ -4,10 +4,10 @@ Class FraisHorsForfait extends Eloquent
 {
     protected $table = 'fraisHorsForfaits';
     
-    public static function getWithDate($month, $year){
+    public static function getWithDate($month, $year, $id){
         return self::where('mois', '=', $month)
             ->where('annee', '=', $year)
-            ->where('user_id', '=', Auth::user()->id)
+            ->where('user_id', '=', $id)
             ->get();
     }
     
@@ -23,5 +23,9 @@ Class FraisHorsForfait extends Eloquent
         ));
         
         return true;
+    }
+    
+    public static function deleteFrais($id){
+        return self::find($id)->delete();
     }
 }

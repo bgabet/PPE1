@@ -4,12 +4,52 @@
         
         public function afficherHomePage(){
             if(Auth::check()){
+                if(User::isVisiteur()){
+                    $day = Carbon::now()->day;
+                    $month = Carbon::now()->month;
+                    $year = Carbon::now()->year;
+                    $pmonth = Carbon::now()->subMonth()->month;
+                    if($pmonth == 12){
+                        $pyear = Carbon::now()->subYear()->year;
+                    }else{
+                        $pyear = $year;
+                    }
+                    
+                    if(FicheFrais::isExist($month, $year) === false){
+                        FicheFrais::createSheet($month, $year);
+                    }
+                    
+                    if($day > 10){
+                        if(FicheFrais::isCloture($pmonth, $pyear) === false){
+                            FicheFrais::cloturerFiche($pmonth, $pyear);
+                        }
+                    }
+                }
                 Return View::make('home');
             }else{
                 Return View::make('login');
             }
         }
-
+        
+        public function afficherChoixUser(){
+            if(User::isComptable()){
+                return View::make('comptable/choix-user');
+            }
+        }
+        
+        public function afficherChoixFiche(){
+            if(User::isComptable()){
+                $id_user = Input::get('user');
+                Return View::make('comptable/choix-fiche')->with('id_user', $id_user);
+            }
+        }
+        
+        public function afficherFicheComptable(){
+            if(User::isComptable()){
+                $id_fiche = Input::get('fiche');
+                Return View::make('voirFicheFrais')->with('id_fiche', $id_fiche);
+            }
+        }
 
         public function afficherPageChoixSaisie(){
             Return View::make('choixsaisie');
@@ -23,72 +63,19 @@
             Return View::make('ajouterfraishorsforfait');
         }
         
+        public function afficherToutesFiches(){
+            Return View::make('comptable/afficher-toutes-fiches');
+        }
+        
         public function afficherPageFicheFrais(){
-            $month = Carbon::now()->month;
-            $year = Carbon::now()->year;
-            if(FicheFrais::isExist($month, $year) === false){
-                FicheFrais::createSheet($month, $year);
-            }
-            
             $id = Input::get('choix-fiche');
             if(isset($id) && !empty($id)){
-                Session::put('id_fiche', $id);
+                Return View::make('voirFicheFrais')->with('id_fiche', $id);
             }
-            
-            
             Return View::make('voirFicheFrais');
         }
-
-
-
-
-
-
-
-
-        /*
-        protected function exist($month, $year){
-            $row = FicheFrais::getWithDate($month, $year);
-            if(isset($row) && !empty($row)){
-                return true;
-            }
-            return false;
-        }
         
-        public function afficherHomePage(){
-            if(!Auth::check()){
-                Return Redirect::to('login');
-            }
-            Return View::make('home');
+        public function afficherModifierFraisForfait(){
+            Return View::make('comptable/afficher-toutes-fiches');
         }
-        
-        public function afficherPageSaisie(){
-            $day = Carbon::now()->day;
-            $month = Carbon::now()->month;
-            $year = Carbon::now()->year;
-            
-            if($month - 1 < 1){
-               $previousmonth = 12;
-               $previousyear = $year - 1;
-            }else{
-                $previousmonth = $month - 1;
-                $previousyear = $year;
-            }
-            
-            if($this->exist($month, $year) == false){
-                FicheFrais::createSheet($month, $year);
-            }
-            
-            if($day > 10){
-                if($this->exist($previousmonth, $previousyear) == true){
-                    FicheFrais::cloturerFiche($previousmonth, $previousyear);
-                }
-                
-            }
-            
-            Return View::make('addcosts');
-        }
-         */
     }
-
-?>

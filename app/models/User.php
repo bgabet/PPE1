@@ -80,5 +80,30 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	{
 		return $this->email;
 	}
+        
+        public static function isAdmin(){
+            if(Auth::user()->fonction_id == 1){
+                return true;
+            }
+            return false;
+        }
+        
+        public static function isComptable(){
+            if(Auth::user()->fonction_id == 2){
+                return true;
+            }
+            return false;
+        }
+        
+        public static function isVisiteur(){
+            if(Auth::user()->fonction_id == 3){
+                return true;
+            }
+            return false;
+        }
+        
+        public static function getWithId($id){
+            return self::where('id', '=', $id)->first();
+        }
 
 }

@@ -13,12 +13,12 @@ class ConnexionController extends BaseController{
     
     public function verifierConnexion(){
         $data = array(
-            'nom' => Input::get('nom'), 
+            'login' => Input::get('nom'), 
             'password' => Input::get('password')
         );
         
         $validator = Validator::make($data,array(
-            'nom' => 'required',
+            'login' => 'required',
             'password' => 'required'
         ));
         

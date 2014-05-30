@@ -5,10 +5,10 @@ Class FicheFrais extends Eloquent
     
     protected $table = 'ficheFrais';
     
-    public static function getWithDate($month, $year){
+    public static function getWithDate($month, $year, $id){
         return self::where('mois', '=', $month)
                 ->where('annee', '=', $year)
-                ->where('user_id', '=', Auth::user()->id)
+                ->where('user_id', '=', $id)
                 ->first();
     }
     
@@ -16,8 +16,8 @@ Class FicheFrais extends Eloquent
         return FicheFrais::where('id', '=', $id)->first();
     }
     
-    public static function getWithIdUser() {
-        return FicheFrais::where('user_id', '=', Auth::user()->id)->orderBy('id', 'desc')->get();
+    public static function getWithIdUser($id) {
+        return FicheFrais::where('user_id', '=', $id)->orderBy('id', 'desc')->get();
     }
     
     public static function cloturerFiche($month, $year) {
@@ -27,8 +27,22 @@ Class FicheFrais extends Eloquent
                 ->update(array('etat_id' => 2));
     }
     
+    public static function isCloture($month, $year) {
+        $fiche = self::where('mois', '=', $month)
+                ->where('annee', '=', $year)
+                ->where('user_id', '=', Auth::user()->id)
+                ->first();
+        if(isset($fiche) && !empty($fiche)){
+            if($fiche->etat_id != 3){
+                return true;
+            }
+            return false;
+        }
+    }
+    
     public static function isExist($month, $year){
-        $a = self::getWithDate($month, $year);
+        $id = Auth::user()->id;
+        $a = self::getWithDate($month, $year, $id);
         if(isset($a) && !empty($a)){
             return true;
         }
