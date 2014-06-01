@@ -2,52 +2,42 @@
 
 @section('content')    
     
-<a href="saisir-frais">Retour</a>
-<br><br>
+<?php
+    $errors = Session::get('errors');
+    if(isset($errors) && !empty($errors)){
+        echo '<div class="alert alert-danger">Les données rentrées ne sont pas exactes</div>';
+    }
 
-    <?php
-        $errors = Session::get('errors');
-    
-        if(isset($errors) && !empty($errors)){
-            echo '<pre>';
-            var_dump($errors);
-            echo '</pre>';
-        }
-        
-        $success = Session::get('success');
-        
-        if(isset($success)){
-            echo $success;
-        }
-    ?>
+    $success = Session::get('success');
+    if(isset($success)){
+        echo '<div class="alert alert-success">' . $success . '</div>';
+    }
+?>
 
-    {{ Form::open(array('url' => 'ajouter-frais-hors-forfait', 'method' => 'post')) }} 
-        
-        <?php
-        $date = sprintf('%02d', Carbon::now()->day) . "/" . sprintf('%02d', Carbon::now()->month) . "/" . Carbon::now()->year;
-        ?>
+{{ Form::open(array('url' => 'ajouter-frais-hors-forfait', 'method' => 'post')) }} 
+
+    <?php $date = sprintf('%02d', Carbon::now()->day) . "/" . sprintf('%02d', Carbon::now()->month) . "/" . Carbon::now()->year; ?>
     
-        {{ Form::label('date', 'Entrez la date (jj/mm/aaaa)') }}
-        {{ "<br>" }}
-        {{ Form::text('date', $date) }}
-        {{ "<br><br>" }}
-        
-        {{ Form::label('libelle', 'Libellé') }}
-        {{ "<br>" }}
-        {{ Form::text('libelle') }}
-        {{ "<br><br>" }}
-        {{ Form::label('montant', 'Montant unitaire') }}
-        {{ "<br>" }}
-        {{ Form::text('montant') }}
-        {{ "<br><br>" }}
-        {{ Form::label('quantite', 'Quantité') }}
-        {{ "<br>" }}
-        {{ Form::text('quantite') }}
-        {{ "<br><br>" }}
-        
-        {{ Form::submit('Soumettre'); }}
-        
-        
-    {{ Form::close() }} 
+    <div class="form-group">
+        <label for="date">Entrez la date (jj/mm/aaaa) : </label>
+        <input type="text" class="form-control" id="date" name="date" value="<?php echo $date; ?>">
+    </div>
+    <div class="form-group">
+        <label for="libelle">Libellé : </label>
+        <input type="text" class="form-control" id="libelle" name="libelle">
+    </div>
+    <div class="form-group">
+        <label for="montant">Montant unitaire : </label>
+        <input type="text" class="form-control" id="montant" name="montant">
+    </div>
+    <div class="form-group">
+        <label for="quantite">Quantité : </label>
+        <input type="text" class="form-control" id="quantite" name="quantite">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Ajouter</button>
+    <a href="saisir-frais" class="btn btn-default">Retour</a>
+
+{{ Form::close() }} 
     
 @stop

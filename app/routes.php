@@ -31,17 +31,16 @@ Route::group(array('before' => 'auth'), function()
         Return View::make('voirFicheFrais')->with('id_fiche', $id_fiche);
     }));
     
-    Route::post('voir-fiche-frais', array('uses' => 'DefautController@afficherPageFicheFrais'));
+    Route::post('voir-fiche-frais', array('as' => 'voir-fiche-frais','uses' => 'DefautController@afficherPageFicheFrais'));
     
     Route::get('modifier-frais-forfait/{forfait_id}/{user_id}/{fiche_id}', array('as' => 'modifier-frais-forfait', 'do' => function($forfait_id, $user_id, $fiche_id){
         
         Return View::make('modifierFraisForfait', array('forfait_id' => $forfait_id, 'user_id' => $user_id, 'fiche_id' => $fiche_id));
     }));
     
-    Route::get('supprimer-frais-hors-forfait/{id_frais}', array('as' => 'supprimer-frais-hors-forfait', 'do' => function($id_frais){
-        FraisHorsForfait::deleteFrais($id_frais);
-        
-        Return Redirect::to('voir-fiche-frais');
+    Route::get('supprimer-frais-hors-forfait/{id_fiche}/{id_fhf}', array('as' => 'supprimer-frais-hors-forfait', 'do' => function($id_fiche, $id_fhf){
+        FraisHorsForfait::deleteFrais($id_fhf);
+        Return Redirect::to('/');
     }));
     
     Route::get('supprimer-frais-forfait/{id_frais}', array('as' => 'supprimer-frais-forfait', 'do' => function($id_frais){
@@ -55,15 +54,18 @@ Route::group(array('before' => 'auth'), function()
         Return Redirect::route($url[3], $data);
     }));
     
+    Route::post('comptable-modifier-etat-fiche', array('uses' => 'FraisController@modifierEtat'));
     
-    Route::get('comptable/choix-user', array('uses' => 'DefautController@afficherChoixUser'));
+    
+    Route::get('comptable/choix-user', array('as'=> 'choix-user','uses' => 'DefautController@afficherChoixUser'));
     
     Route::post('comptable/choix-fiche', array('uses' => 'DefautController@afficherChoixFiche'));
     Route::post('comptable/fiche', array('uses' => 'DefautController@afficherFicheComptable'));
     
-    Route::get('comptable/voir-toutes-fiches', array('uses' => 'DefautController@afficherToutesFiches'));
+    Route::get('comptable/voir-toutes-fiches', array('as' => 'all-fiche','uses' => 'DefautController@afficherToutesFiches'));
     
-    
+    Route::get('ajouter-user', array('uses' => 'AdminController@afficherAjouterUser'));
+    Route::post('ajout-user', array('before' => 'csrf', 'uses' => 'AdminController@ajouterUser'));
     
 });
 

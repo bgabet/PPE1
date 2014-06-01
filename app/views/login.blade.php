@@ -1,14 +1,19 @@
 @extends('layout')
 
-@section('content')    
- 
+@section('content')
 
-    {{ Form::open(array('url' => 'login', 'method' => 'post')) }} 
-        {{ Form::label('nom', "Nom d'utilisateur : ") }}
-        {{ Form::text("nom") }}
-        {{ Form::label('password', 'Mot de passe : ') }}
-        {{ Form::password('password') }}
-        {{ Form::submit('Connexion') }}
-    {{ Form::close() }} 
+    {{ Form::open(array('url' => '/login', 'method' => 'post')) }}
+        
+        <div class="form-group">
+            <label for="nom">Nom d'utilisateur : </label>
+            <input type="text" class="form-control" id="nom" name="nom" placeholder="Username">
+        </div>
+        <div class="form-group">
+            <label for="password">Nom d'utilisateur : </label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+        </div>
+        <button type="submit" class="btn btn-primary">Connexion</button>    
+        
+    {{ Form::close() }}
     
 @stop

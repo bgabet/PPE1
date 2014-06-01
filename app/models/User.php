@@ -105,5 +105,26 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         public static function getWithId($id){
             return self::where('id', '=', $id)->first();
         }
+        
+        public static function ajouter($data){
+	    return self::insert(
+		array(
+		    'nom' => $data['nom'],
+		    'prenom' => $data['prenom'],
+		    'email' => $data['email'],
+		    'login' => $data['login'],
+		    'password' => Hash::make($data['password']),
+		    'adresse' => $data['adresse'],
+		    'cp' => $data['cp'],
+		    'ville' => $data['ville'],
+		    'date_embauche' => $data['date_embauche'],
+		    'fonction_id' => $data['fonction']
+		)
+	    );
+        }
+        
+        public static function getWithLogin($login){
+	    return self::where('login', '=', $login)->first();
+        }
 
 }

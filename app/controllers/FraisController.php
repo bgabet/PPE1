@@ -9,7 +9,7 @@
             );
             foreach(Forfait::get() as $forfait){
                 $name = 'forfait-' . $forfait->id;
-                $data[$name] = (int)Input::get($name);
+                $data[$name] = Input::get($name);
                 if(empty($data[$name])){
                     $data[$name] = 0;
                 }
@@ -32,7 +32,7 @@
             }
             
             FraisForfait::ajouter($data);
-            return Redirect::to('ajouter-frais-forfait')->with('success', 'vous avez bien ajouter vos frais forfaits');
+            return Redirect::to('ajouter-frais-forfait')->with('success', 'Vous avez bien ajouter vos frais forfaits');
         }
         
         public function ajouterFraisHorsForfait() {
@@ -47,7 +47,7 @@
                 'annee' => $year,
                 'libelle'   => Input::get('libelle'),
                 'montant'   => Input::get('montant'),
-                'quantite'  => (int)Input::get('quantite')
+                'quantite'  => Input::get('quantite')
             );
             
             $rules = array(
@@ -67,7 +67,13 @@
             }
             
             FraisHorsForfait::ajouter($data);
-            return Redirect::to('ajouter-frais-hors-forfait')->with('success', 'vous avez bien ajouter vos frais forfaits');
+            return Redirect::to('ajouter-frais-hors-forfait')->with('success', 'Vous avez bien ajouter vos frais hors forfaits');
+        }
+        
+        public function modifierEtat(){
+	    $id_fiche = Input::get('ficheid');
+	    $id_etat = Input::get('etatfiche');
+	    FicheFrais::modifierEtat($id_fiche, $id_etat);
         }
     }
 

@@ -40,6 +40,7 @@
         public function afficherChoixFiche(){
             if(User::isComptable()){
                 $id_user = Input::get('user');
+                Session::push('id_user_choisi', $id_user);
                 Return View::make('comptable/choix-fiche')->with('id_user', $id_user);
             }
         }

@@ -2,10 +2,14 @@
 
 @section('content')  
 
-<ul>
-    <li><a href="ajouter-frais-forfait">Saisir un frais forfait</a></li>
-    <li><a href="ajouter-frais-hors-forfait">Saisir un frais hors forfait</a></li>
-    <li><a href="/">Retour</a></li>
-</ul>
+    <p>
+        <a href="ajouter-frais-forfait" class="btn btn-primary center-block">Saisir un frais forfait</a>
+    </p>
+    <p>
+        <a href="ajouter-frais-hors-forfait" class="btn btn-primary center-block">Saisir un frais hors forfait</a>
+    </p>
+    <p>
+        <a href="/" class="btn btn-primary center-block">Retour</a>
+    </p>
 
 @stop

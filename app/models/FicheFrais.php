@@ -36,8 +36,8 @@ Class FicheFrais extends Eloquent
             if($fiche->etat_id != 3){
                 return true;
             }
-            return false;
         }
+        return false;
     }
     
     public static function isExist($month, $year){
@@ -56,5 +56,10 @@ Class FicheFrais extends Eloquent
             'user_id' => Auth::user()->id,
             'etat_id' => 3
         ));
+    }
+    
+    public static function modifierEtat($id_fiche, $id_etat){
+	return self::where('id', '=', $id_fiche)
+                ->update(array('etat_id' => $id_etat));
     }
 }

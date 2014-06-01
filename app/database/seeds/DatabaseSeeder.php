@@ -15,7 +15,10 @@ class DatabaseSeeder extends Seeder {
                 $this->call('EtatTableSeeder');
                 $this->call('ForfaitTableSeeder');
                 $this->call('UserTableSeeder');
-                
+                $this->call('FicheFraisSeeder');
+                $this->call('FraisForfaitSeeder'); 
+                $this->call('FraisHorsForfaitSeeder');
+                  
 	}
 
 }
