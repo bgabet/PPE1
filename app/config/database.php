@@ -54,10 +54,10 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => 'localhost',
-			'database'  => 'gsb-v2',
-			'username'  => 'root',
-			'password'  => 'testtest',
+			'host'      => 'freeprodfra.mysql.db',
+			'database'  => 'freeprodfra',
+			'username'  => 'freeprodfra',
+			'password'  => '',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
